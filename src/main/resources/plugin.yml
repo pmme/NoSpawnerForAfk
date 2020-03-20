@@ -1,0 +1,20 @@
+name: NoSpawnerForAfk
+version: 1.0
+author: pmme
+description: Block spawn events from spawners if all nearby players are AFK
+main: nz.pmme.nospawnerforafk.NoSpawnerForAfk
+
+commands:
+  nospawnerforafk:
+    description: NoSpawnerForAfk commands
+    usage: /nospawnerforafk [on|off]
+    permission: nospawnerforafk.enable
+    permission-message: You do not have permission to use this command.
+
+permissions:
+  nospawnerforafk.enable:
+    description: Allow enable or disable of plugin.
+    default: op
+  nospawnerforafk.bypass:
+    description: Players with this permission can still get spawns from spawners when AFK.
+    default: false
