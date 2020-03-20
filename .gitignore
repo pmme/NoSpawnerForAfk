@@ -1,0 +1,12 @@
+#IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+META-INF/
+
+#Output
+out/
+
+#Libraries
+libraries/
