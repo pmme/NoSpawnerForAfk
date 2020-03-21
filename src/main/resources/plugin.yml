@@ -1,8 +1,10 @@
 name: NoSpawnerForAfk
-version: 1.0
+version: 1.0.0
 author: pmme
-description: Block spawn events from spawners if all nearby players are AFK
+description: Block spawn events from spawners if all nearby players are AFK in Essentials
 main: nz.pmme.nospawnerforafk.NoSpawnerForAfk
+api-version: 1.15
+depend: [Essentials]
 
 commands:
   nospawnerforafk:
@@ -18,3 +20,9 @@ permissions:
   nospawnerforafk.bypass:
     description: Players with this permission can still get spawns from spawners when AFK.
     default: false
+  nospawnerforafk.*:
+    description: Grant all permissions.
+    default: false
+    children:
+      nospawnerforafk.enable: true
+      nospawnerforafk.bypass: true

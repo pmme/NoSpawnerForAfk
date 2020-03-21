@@ -18,7 +18,7 @@ public class EventsListener implements Listener
     public EventsListener( NoSpawnerForAfk plugin ) {
         this.plugin = plugin;
     }
-    
+
     @EventHandler
     public void onSpawnerSpawn( SpawnerSpawnEvent event )
     {
@@ -26,12 +26,13 @@ public class EventsListener implements Listener
         CreatureSpawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
         Collection<Entity> nearbyEntities = spawnerLocation.getWorld().getNearbyEntities( spawnerLocation, range, range, range, (e)->(e.getType()==EntityType.PLAYER) );
-        
+
         boolean allPlayersAfk = true;
         for( Entity entity : nearbyEntities ) {
             if( entity instanceof Player ) {
                 Player player = ( Player )entity;
-                if( /*entity != afk*/false || player.hasPermission( "nospawnerforafk.bypass" ) ) {
+                net.ess3.api.IUser essentialsUser = plugin.getEssentials().getUser( player );
+                if( !essentialsUser.isAfk() || player.hasPermission( "nospawnerforafk.bypass" ) ) {
                     allPlayersAfk = false;
                     break;
                 }
