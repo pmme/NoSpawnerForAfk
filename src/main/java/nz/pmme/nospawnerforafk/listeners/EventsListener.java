@@ -20,6 +20,7 @@ public class EventsListener implements Listener
     @EventHandler
     public void onSpawnerSpawnSpigot( org.bukkit.event.entity.SpawnerSpawnEvent event )
     {
+        if( !plugin.isNoSpawnerForAfkEnabled() ) return;
         int range = this.plugin.getConfig().getInt( "check-range" );
         org.bukkit.block.CreatureSpawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
@@ -42,6 +43,7 @@ public class EventsListener implements Listener
     @EventHandler
     public void onSpawnerSpawnEpicSpawners( com.songoda.epicspawners.api.events.SpawnerSpawnEvent event )
     {
+        if( !plugin.isNoSpawnerForAfkEnabled() ) return;
         int range = this.plugin.getConfig().getInt( "check-range" );
         com.songoda.epicspawners.spawners.spawner.Spawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
