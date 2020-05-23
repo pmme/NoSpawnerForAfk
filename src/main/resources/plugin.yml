@@ -5,6 +5,7 @@ description: Block spawn events from spawners if all nearby players are AFK in E
 main: nz.pmme.nospawnerforafk.NoSpawnerForAfk
 api-version: 1.15
 depend: [Essentials]
+softdepend: [EpicSpawners]
 
 commands:
   nospawnerforafk:
