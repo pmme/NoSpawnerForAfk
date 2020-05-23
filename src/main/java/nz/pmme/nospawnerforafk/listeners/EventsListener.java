@@ -21,7 +21,7 @@ public class EventsListener implements Listener
     public void onSpawnerSpawnSpigot( org.bukkit.event.entity.SpawnerSpawnEvent event )
     {
         if( !plugin.isNoSpawnerForAfkEnabled() ) return;
-        int range = this.plugin.getConfig().getInt( "check-range" );
+        int range = this.plugin.getConfig().getInt( "check-range", 16 );
         org.bukkit.block.CreatureSpawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
         Collection<Entity> nearbyEntities = spawnerLocation.getWorld().getNearbyEntities( spawnerLocation, range, range, range, (e)->(e.getType()==EntityType.PLAYER) );
@@ -44,7 +44,7 @@ public class EventsListener implements Listener
     public void onSpawnerSpawnEpicSpawners( com.songoda.epicspawners.api.events.SpawnerSpawnEvent event )
     {
         if( !plugin.isNoSpawnerForAfkEnabled() ) return;
-        int range = this.plugin.getConfig().getInt( "check-range" );
+        int range = this.plugin.getConfig().getInt( "check-range", 16 );
         com.songoda.epicspawners.spawners.spawner.Spawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
         Collection<Entity> nearbyEntities = spawnerLocation.getWorld().getNearbyEntities( spawnerLocation, range, range, range, (e)->(e.getType()==EntityType.PLAYER) );

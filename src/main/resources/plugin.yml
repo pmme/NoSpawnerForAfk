@@ -9,13 +9,14 @@ depend: [Essentials]
 commands:
   nospawnerforafk:
     description: NoSpawnerForAfk commands
-    usage: /nospawnerforafk [on|off]
-    permission: nospawnerforafk.enable
-    permission-message: You do not have permission to use this command.
+    usage: /nospawnerforafk [on|off|range]
 
 permissions:
   nospawnerforafk.enable:
     description: Allow enable or disable of plugin.
+    default: op
+  nospawnerforafk.setrange:
+    description: Players with this permission can set the range to check for players.
     default: op
   nospawnerforafk.bypass:
     description: Players with this permission can still get spawns from spawners when AFK.
@@ -25,4 +26,5 @@ permissions:
     default: false
     children:
       nospawnerforafk.enable: true
+      nospawnerforafk.setrange: true
       nospawnerforafk.bypass: true
