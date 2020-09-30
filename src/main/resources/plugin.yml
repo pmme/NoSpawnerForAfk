@@ -10,7 +10,7 @@ softdepend: [EpicSpawners]
 commands:
   nospawnerforafk:
     description: NoSpawnerForAfk commands
-    usage: /nospawnerforafk [on|off|range]
+    usage: /nospawnerforafk [on|off|range|log]
 
 permissions:
   nospawnerforafk.enable:
@@ -18,6 +18,9 @@ permissions:
     default: op
   nospawnerforafk.setrange:
     description: Players with this permission can set the range to check for players.
+    default: op
+  nospawnerforafk.log:
+    description: Players with this permission can enable or disable debug logging.
     default: op
   nospawnerforafk.bypass:
     description: Players with this permission can still get spawns from spawners when AFK.
@@ -29,3 +32,4 @@ permissions:
       nospawnerforafk.enable: true
       nospawnerforafk.setrange: true
       nospawnerforafk.bypass: true
+      nospawnerforafk.log: true

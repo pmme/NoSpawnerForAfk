@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,18 +18,25 @@ public class Commands implements CommandExecutor, TabCompleter
     private static final String[] firstArguments = {
             "on",
             "off",
-            "range"
+            "range",
+            "log"
+    };
+    private static final String[] secondArguments = {
+            "on",
+            "off"
     };
     private static final String[] msgNoSpawnerForAfkUsage = {
             ChatColor.DARK_AQUA + "NoSpawnerForAfk command usage:",
-            ChatColor.WHITE + "/nospawnerforafk on" + ChatColor.DARK_AQUA + " - Turn NoSpawnerForAfk ON.",
-            ChatColor.WHITE + "/nospawnerforafk off" + ChatColor.DARK_AQUA + " - Turn NoSpawnerForAfk OFF.",
-            ChatColor.WHITE + "/nospawnerforafk range <range>" + ChatColor.DARK_AQUA + " - Set the range to check for players."
+            ChatColor.WHITE + "/nospawnerforafk on/off" + ChatColor.DARK_AQUA + " - Turn NoSpawnerForAfk ON or OFF.",
+            ChatColor.WHITE + "/nospawnerforafk range <range>" + ChatColor.DARK_AQUA + " - Set the range to check for players.",
+            ChatColor.WHITE + "/nospawnerforafk log on/off" + ChatColor.DARK_AQUA + " - Turn debug logging ON or OFF."
     };
     private static final String msgNoSpawnerForAfkEnabled = ChatColor.GREEN + "NoSpawnerForAfk enabled";
     private static final String msgNoSpawnerForAfkDisabled = ChatColor.GRAY + "NoSpawnerForAfk disabled";
     private static final String msgNoSpawnerForAfkRangeSet = ChatColor.DARK_AQUA + "NoSpawnerForAfk range set to %range%.";
     private static final String msgNoSpawnerForAfkBadRange = ChatColor.RED + "You must finish with an integer number for the range, e.g. 16";
+    private static final String msgNoSpawnerForAfkLoggingOn = ChatColor.GREEN + "NoSpawnerForAfk will now log to the console.";
+    private static final String msgNoSpawnerForAfkLoggingOff = ChatColor.GRAY + "NoSpawnerForAfk logging disabled";
     private static final String msgNoSpawnerForAfkNoConsole = "This command must be used by an active player.";
     private static final String msgNoPermission = ChatColor.RED + "You do not have permission to use this command.";
 
@@ -50,6 +58,10 @@ public class Commands implements CommandExecutor, TabCompleter
                     }
                 }
                 return matchingFirstArguments;
+            }
+            if(args.length == 2)
+            {
+                return Arrays.asList( secondArguments );
             }
         }
         return Collections.emptyList();
@@ -101,6 +113,24 @@ public class Commands implements CommandExecutor, TabCompleter
                         return true;
                     } catch( NumberFormatException e ) {
                         sender.sendMessage(msgNoSpawnerForAfkBadRange);
+                        return true;
+                    }
+                }
+                break;
+            case "log":
+                if(!sender.hasPermission("nospawnerforafk.log")) {
+                    sender.sendMessage(msgNoPermission);
+                    return true;
+                }
+                if( args.length == 2 ) {
+                    switch( args[1].toLowerCase() ) {
+                    case "on":
+                        plugin.setLogging(true);
+                        sender.sendMessage(msgNoSpawnerForAfkLoggingOn);
+                        return true;
+                    case "off":
+                        plugin.setLogging(false);
+                        sender.sendMessage(msgNoSpawnerForAfkLoggingOff);
                         return true;
                     }
                 }
