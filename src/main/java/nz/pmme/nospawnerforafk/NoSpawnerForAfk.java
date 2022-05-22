@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
@@ -22,7 +23,14 @@ public class NoSpawnerForAfk extends JavaPlugin
         this.saveDefaultConfig();
         this.getCommand("nospawnerforafk").setExecutor(new Commands(this));
         this.getServer().getPluginManager().registerEvents( new SpigotEventsListener(this), this );
-        if( this.getServer().getPluginManager().getPlugin("EpicSpawners") != null ) {
+        Plugin esPlugin = this.getServer().getPluginManager().getPlugin("EpicSpawners");
+        if( esPlugin != null ) {
+            int esMajorVersion = Character.valueOf( esPlugin.getDescription().getVersion().charAt( 0 ) );
+            if( esMajorVersion < 7 ) {
+                this.getServer().getLogger().severe( "Disabling NoSpawnerForAfk because this version requires EpicSpawners version 7 or later." );
+                this.getServer().getPluginManager().disablePlugin(this);
+                return;
+            }
             this.getServer().getPluginManager().registerEvents( new EpicSpawnersListener(this), this );
         }
         this.essentials = (net.ess3.api.IEssentials)this.getServer().getPluginManager().getPlugin( "Essentials" );

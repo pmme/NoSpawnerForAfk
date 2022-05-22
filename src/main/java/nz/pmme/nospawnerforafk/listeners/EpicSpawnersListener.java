@@ -16,7 +16,7 @@ public class EpicSpawnersListener implements Listener
     public void onSpawnerSpawnEpicSpawners( com.songoda.epicspawners.api.events.SpawnerSpawnEvent event )
     {
         if( !this.plugin.isNoSpawnerForAfkEnabled() ) return;
-        com.songoda.epicspawners.spawners.spawner.Spawner spawner = event.getSpawner();
+        com.songoda.epicspawners.spawners.spawner.PlacedSpawner spawner = event.getSpawner();
         Location spawnerLocation = spawner.getLocation();
         this.plugin.checkSpawnEvent(event, spawnerLocation, "EpicSpawners");
     }
