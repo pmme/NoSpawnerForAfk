@@ -2,3 +2,4 @@
 #
 # config.yml
 check-range: 16
+check-range-vert: 512
