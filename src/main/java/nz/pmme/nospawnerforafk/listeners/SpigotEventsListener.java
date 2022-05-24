@@ -20,4 +20,13 @@ public class SpigotEventsListener implements Listener
         Location spawnerLocation = spawner.getLocation();
         this.plugin.checkSpawnEvent(event, spawnerLocation, "Spigot");
     }
+
+    @EventHandler
+    public void onNaturalSpawn( org.bukkit.event.entity.EntitySpawnEvent event )
+    {
+        if( !this.plugin.isNoSpawnerForAfkEnabled() ) return;
+        if( event.getEntityType().isAlive() ) {
+            this.plugin.checkSpawnEvent( event, event.getEntity().getLocation(), "Natural" );
+        }
+    }
 }
