@@ -107,6 +107,7 @@ public class Commands implements CommandExecutor, TabCompleter
                 if( args.length == 2 ) {
                     try {
                         int range = Integer.parseInt(args[1]);
+                        plugin.setRange( range );
                         plugin.getConfig().set( "check-range", range );
                         plugin.saveConfig();
                         sender.sendMessage( msgNoSpawnerForAfkRangeSet.replace( "%range%", String.valueOf(range) ) );

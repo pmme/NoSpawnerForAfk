@@ -16,11 +16,13 @@ public class NoSpawnerForAfk extends JavaPlugin
 {
     private boolean enabled = true;
     private boolean logging = false;
+    private int range = 16;
     private net.ess3.api.IEssentials essentials = null;
 
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+        this.range = this.getConfig().getInt( "check-range", 16 );
         this.getCommand("nospawnerforafk").setExecutor(new Commands(this));
         this.getServer().getPluginManager().registerEvents( new SpigotEventsListener(this), this );
         Plugin esPlugin = this.getServer().getPluginManager().getPlugin("EpicSpawners");
@@ -62,6 +64,9 @@ public class NoSpawnerForAfk extends JavaPlugin
     public void setLogging( boolean enableLogging ) {
         this.logging = enableLogging;
     }
+    public void setRange( int range ) {
+        this.range = range;
+    }
 
     public net.ess3.api.IEssentials getEssentials() {
         return this.essentials;
@@ -69,8 +74,7 @@ public class NoSpawnerForAfk extends JavaPlugin
 
     public void checkSpawnEvent(org.bukkit.event.Cancellable event, Location spawnerLocation, String spawnType)
     {
-        int range = this.getConfig().getInt( "check-range", 16 );
-        Collection<Entity> nearbyEntities = spawnerLocation.getWorld().getNearbyEntities( spawnerLocation, range, range, range, (e)->(e.getType()== EntityType.PLAYER) );
+        Collection<Entity> nearbyEntities = spawnerLocation.getWorld().getNearbyEntities( spawnerLocation, this.range, this.range, this.range, (e)->(e.getType()==EntityType.PLAYER) );
 
         int nearByPlayers = 0;
         boolean allPlayersAfk = true;
